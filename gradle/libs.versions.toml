@@ -15,6 +15,10 @@ gson-version = "2.11.0"
 okhttp-version = "4.12.0"
 hilt-compose-version = "1.2.0"
 coil-version = "3.0.0-rc01"
+composeNavVersion = "2.8.3"
+composeConstraintVersion = "1.0.1"
+constraintlayout = "1.1.0-rc01"
+room-version = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +48,16 @@ gson = {module = "com.google.code.gson:gson",version.ref = "gson-version"}
 dagger-hilt-compose = {module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-compose-version"}
 
 coil = {module = "io.coil-kt.coil3:coil-compose", version.ref = "coil-version"}
+coil-network = {module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil-version"}
+
+compose-navigation = {module = "androidx.navigation:navigation-compose", version.ref = "composeNavVersion"}
+compose-constraint = {module = "androidx.constraintlayout:constraintlayout-compose-android", version.ref = "composeConstraintVersion"}
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayout" }
+
+room-runtime = {module = "androidx.room:room-runtime", version.ref = "room-version"}
+room-compiler = {module = "androidx.room:room-compiler", version.ref = "room-version"}
+room-kapt = {module = "androidx.room:room-compiler", version.ref = "room-version"}
+room-ktx = {module = "androidx.room:room-ktx", version.ref = "room-version"}
 
 
 [plugins]

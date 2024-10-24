@@ -1,8 +1,8 @@
 package com.example.todayswave.presentation.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,12 +32,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.example.todayswave.data.model.News
 import com.example.todayswave.presentation.State
+import com.example.todayswave.utils.NavRoute
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(navController : NavHostController) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState = viewModel.state.collectAsState()
     val searchText = remember {
@@ -84,13 +86,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
             else -> {
                 val data = (uiState.value as State.Success).data
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    item{
-                        Text(text = "News")
-                    }
-                    items(data.news){article ->
-                        NewsItem(article)
-                    }
+                NewsListView(news = data.news) {
+                    navController.navigate(NavRoute.createTodaysWaveDetails(it))
                 }
             }
         }
@@ -98,7 +95,19 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NewsItem(news: News) {
+fun NewsListView(news: List<News>, onClick: (News) -> Unit) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        item{
+            Text(text = "News")
+        }
+        items(news){article ->
+            NewsItem(article, onClick = { onClick(article) })
+        }
+    }
+}
+
+@Composable
+fun NewsItem(news: News, onClick: () -> Unit) {
     Box (
         modifier = Modifier
             .padding(vertical = 4.dp)
@@ -106,15 +115,20 @@ fun NewsItem(news: News) {
             .height(130.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(Color.Blue.copy(alpha = 0.5f))
+            .clickable { onClick() }
     ){
         AsyncImage(
             model = news.image,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(16.dp)),
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.Crop
         )
-        Log.d("ImageUrl", news.image)
-        Box(modifier = Modifier.fillMaxSize().padding(8.dp)){
+
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)){
             Text(
                 text = news.title,
                 modifier = Modifier.align(Alignment.TopStart),
@@ -127,7 +141,7 @@ fun NewsItem(news: News) {
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
             Text(
-                text = news.authors?.joinToString(",")?: "",
+                text = news.authors?.joinToString(", ")?: "",
                 color = Color.White,
                 modifier = Modifier.align(BottomStart)
             )

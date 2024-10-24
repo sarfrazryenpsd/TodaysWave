@@ -1,10 +1,7 @@
 package com.example.todayswave.presentation.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.todayswave.data.model.News
 import com.example.todayswave.data.response.TodaysWaveResponse
 import com.example.todayswave.domain.usecase.GetNewsUseCase
 import com.example.todayswave.presentation.State

@@ -84,9 +84,21 @@ dependencies {
     implementation(libs.dagger.hilt.compose)
 
     implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.constraintlayout)
     kapt(libs.dagger.hilt.compiler)
 
     implementation(libs.coil)
+    implementation(libs.coil.network)
+
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.constraint)
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.kapt)
+    implementation(libs.room.ktx)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

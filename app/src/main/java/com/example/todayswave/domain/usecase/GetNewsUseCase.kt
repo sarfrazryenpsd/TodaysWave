@@ -11,7 +11,7 @@ class GetNewsUseCase @Inject constructor(
     suspend operator fun invoke(
         country: String?,
         language: String,
-        text: String?
+        text: String?,
     ) :TodaysWaveResponse {
         val response = todaysWaveRepository.getNews(country, language, text)
         if (response.body() == null){
